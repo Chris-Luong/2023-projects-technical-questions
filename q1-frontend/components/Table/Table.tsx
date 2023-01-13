@@ -13,7 +13,7 @@ interface AlertUpdate {
   update: string;
 }
 
-interface Alert {
+export interface Alert {
   alert: string;
   status: string;
   updates: AlertUpdate[];
@@ -25,7 +25,7 @@ export interface TableContents {
 }
 
 export default function Table() {
-  const [contents, useContents] = useState<TableContents>({
+  const [contents, setContents] = useState<TableContents>({
     columnTitles: ["Alert", "Status", "Updates"],
     rowContents: [
       {
@@ -58,7 +58,7 @@ export default function Table() {
 
   return (
     <>
-      <AlertModal useContents={useContents} />
+      <AlertModal contents={contents} setContents={setContents} />
       <div className={styles.myTable}>
         <div className={styles.row}>
           {contents.columnTitles.map((item) => (
