@@ -21,6 +21,20 @@ const app = express();
 // the POST /entity endpoint adds an entity to your global space database
 app.post("/entity", (req, res) => {
   // TODO: fill me in
+  try {
+    const entitiesArr = req.body;
+    console.log(entitiesArr);
+    spaceDatabase.push(...entitiesArr);
+
+    return res.status(200).json({});
+  } catch (e) {
+    // Just send 400 error for now
+    if (typeof e === "string") {
+      res.status(400).send({ error: e.toUpperCase() });
+    } else if (e instanceof Error) {
+      res.status(400).send({ error: e.message });
+    }
+  }
 });
 
 // lasooable returns all the space animals a space cowboy can lasso given their name
