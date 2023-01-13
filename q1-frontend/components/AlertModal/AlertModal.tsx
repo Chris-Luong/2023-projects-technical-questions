@@ -27,11 +27,11 @@ export default function AlertModal({ contents, setContents }: AlertModalProps) {
     setContents(newContents);
   }
 
-  useEffect(() => {
-    if (newContents !== null || newContents !== undefined) {
-      setContents(newContents);
-    }
-  }, [newContents, setContents]);
+  // useEffect(() => {
+  //   if (newContents !== null || newContents !== undefined) {
+  //     setContents(newContents);
+  //   }
+  // }, [newContents, setContents]);
 
   return (
     <form data-testid='form' onSubmit={onSubmitEvent}>
