@@ -72,6 +72,7 @@ export default function Table() {
             <div className={styles.item}>{content.alert}</div>
             <div className={styles.item}>{content.status}</div>
             <div className={styles.item}>
+              {/* Could use spread operator here instead? */}
               {content.updates.map((update) => (
                 <div className={styles.updateObj}>
                   <div>{update.update}</div>

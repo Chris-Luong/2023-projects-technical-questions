@@ -1,4 +1,4 @@
-import { SetStateAction, Dispatch, FormEvent, useEffect } from "react";
+import { SetStateAction, Dispatch, FormEvent } from "react";
 import { Alert, TableContents } from "../Table/Table";
 
 interface AlertModalProps {
@@ -7,8 +7,6 @@ interface AlertModalProps {
 }
 
 export default function AlertModal({ contents, setContents }: AlertModalProps) {
-  let newContents: TableContents = contents;
-
   function onSubmitEvent(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // hint: the alert given is at (e.target as any).elements[0].value - ignore typescript being annoying
@@ -20,18 +18,16 @@ export default function AlertModal({ contents, setContents }: AlertModalProps) {
       updates: [],
     };
 
-    newContents = contents;
-    newContents.rowContents.push(newObj);
+    // React renders when changing state using spread operator, but not when passing array itself
+    const newContents = [...contents.rowContents, newObj];
 
     console.log(newContents);
-    setContents(newContents);
+    const newTable = {
+      columnTitles: ["Alert", "Status", "Updates"],
+      rowContents: newContents,
+    };
+    setContents(newTable);
   }
-
-  // useEffect(() => {
-  //   if (newContents !== null || newContents !== undefined) {
-  //     setContents(newContents);
-  //   }
-  // }, [newContents, setContents]);
 
   return (
     <form data-testid='form' onSubmit={onSubmitEvent}>
